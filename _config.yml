@@ -8,7 +8,7 @@ subtitle:
 description:
 author: DragonKid
 language: en
-timezone:
+timezone: Asia/Shanghai
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
@@ -78,3 +78,4 @@ theme: material
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
+  repo: git@github.com:dragonkid/dragonkid.github.io.git
