@@ -3,7 +3,7 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Hexo
+title: DragonKid's Blog
 subtitle:
 description:
 author: DragonKid
@@ -86,5 +86,9 @@ feed:
   limit: 0
   hub:
   content:
-  content_limit: 140
+  content_limit: 400
   content_limit_delim: ' '
+
+search:
+  path: search.xml
+  field: all
