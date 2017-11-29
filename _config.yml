@@ -12,7 +12,7 @@ timezone: Asia/Shanghai
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: http://yoursite.com
+url: https://dragonkid.github.io/
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
@@ -79,3 +79,12 @@ theme: material
 deploy:
   type: git
   repo: git@github.com:dragonkid/dragonkid.github.io.git
+
+feed:
+  type: atom
+  path: atom.xml
+  limit: 0
+  hub:
+  content:
+  content_limit: 140
+  content_limit_delim: ' '

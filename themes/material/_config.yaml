@@ -18,7 +18,7 @@ head:
 
 # Jump Links Settings
 url:
-    rss:
+    rss: atom.xml
     daily_pic: "#"
     logo: "#"
 
@@ -163,13 +163,13 @@ toc:
 # SNS Menu
 sns:
     email: idragonkid@gmail.com
-    facebook: "https://www.facebook.com/facebook"
-    twitter: "https://twitter.com/twitter"
-    googleplus: "https://www.google.com/"
+    facebook:
+    twitter:
+    googleplus:
     weibo:
     instagram:
     tumblr:
-    github:
+    github: "https://github.com/dragonkid"
     linkedin:
     zhihu:
     bilibili:
@@ -190,19 +190,19 @@ sns_share:
 sidebar:
     dropdown:
         Email Me:
-            link: "#"
+            link: "mailto:idragonkid@gmail.com"
             icon: email
     homepage:
         use: true
         icon: home
         divider: false
+    categories:
+        use: true
+        icon: chrome_reader_mode
+        divider: false
     archives:
         use: true
         icon: inbox
-        divider: false
-    categories:
-        use: false
-        icon: chrome_reader_mode
         divider: false
     pages:
         #About:
@@ -210,7 +210,7 @@ sidebar:
             #icon: person
             #divider: false
     article_num:
-        use: false
+        use: true
         divider: false
     footer:
         divider: true
