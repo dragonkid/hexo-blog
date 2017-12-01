@@ -1,5 +1,5 @@
 ---
-title: 研发技巧
+title: Python Best Practice
 ---
 
 # Python 编码规范
@@ -13,34 +13,25 @@ title: 研发技巧
 * 服务端一律使用 `time.time()` 获取 UTC 时间戳作为时间标识，在需要进行展示的地方使用对应方法转换为本时区的不同格式时间
 * 通过截断逻辑避免缩进的出现。以下述代码为例：
 
-```python
-def save_cache_data_num_to_mongo(radar_url, data_num):
-    data_source = conn.staratlasui.data_source.find({'host_addr': radar_url})
-    if data_source.count() > 0:
-        cache_date_num_coll = conn.staratlasui.cache_data_num
-        cache_date_num_coll.insert({
-            'data_source': radar_url,
-            'data_source_name': data_source[0].get('name', ''),
-            'data_num': data_num,
-            'timestamp': datetime.datetime.utcnow()
-        })
+```
+def save_data_to_mongo(data):
+    if data:
+        check_data(data)
+        format_data(data)
+        extend_data(data)
+        db.collection.insert(data)
 ```
 
 更好的写法为：
 
 ```
-def save_cache_data_num_to_mongo(radar_url, data_num):
-    data_source = conn.staratlasui.data_source.find({'host_addr': radar_url})
-    if data_source.count() == 0:
+def save_data_to_mongo(data):
+    if not data:
         return
-        
-    cache_date_num_coll = conn.staratlasui.cache_data_num
-    cache_date_num_coll.insert({
-        'data_source': radar_url,
-        'data_source_name': data_source[0].get('name', ''),
-        'data_num': data_num,
-        'timestamp': datetime.datetime.utcnow()
-    })
+    check_data(data)
+    format_data(data)
+    extend_data(data)
+    db.collection.insert(data)
 ```
 
 * 函数拆分、接口设计原则优先考虑可读性，在出现性能问题时再考虑合并优化
@@ -286,12 +277,11 @@ In [55]: def func(arg):
 
 ## ssh config 
 
->> The known_hosts file lets the client authenticate the server, to check that it isn't connecting to an impersonator. The authorized_keys file lets the server authenticate the user.
+> The known_hosts file lets the client authenticate the server, to check that it isn't connecting to an impersonator. The authorized_keys file lets the server authenticate the user.
 
 ## tmux
 
-* https://github.com/dragonkid
-
+* https://github.com/dragonkid/tmux-config
 * zoom pane `ctrl + z`
 
 ## keychain
@@ -313,35 +303,23 @@ mitmproxy -p 9200 -R http://localhost:9201 -b 0.0.0.0 --no-mouse
 ## vagrant
 
 * vagrant scp
-
 * vagrant oh-my-zsh plugin
 
 ## shell/zsh
 
 * `alt + f/b`: 前进/后退一个单词
-
 * `ctrl + f/b`: 前进/后退一个字母
-
 * `ctrl + u/y`: 清空/恢复当前输入
-
 * `ctrl + e`: 移动到当前输入末尾
-
 * `ctrl + a`: 移动到当前输入开头
-
 * `ctrl + '/"`: 为当前文本增加单/双引号 
-
 * `ctrl + p/n`: 查看上一条/下一条命令
-
 * `ctrl + r`/`ctrl + shift + r`: 查找曾经输入过的命令，按多次查找下一个或上一个
-
-* `Ctrl+XX`: Move between the beginning of the line and the current position of the cursor. This allows you to press Ctrl+XX to return to the start of the line, change something, and then press Ctrl+XX to go back to your original cursor position. To use this shortcut, hold the Ctrl key and tap the X key twice.
-* Ctrl+D or Delete: Delete the character under the cursor.
-* Alt+D: Delete all characters after the cursor on the current line.
-
+* `ctrl+xx`: Move between the beginning of the line and the current position of the cursor. This allows you to press `ctrl+xx` to return to the start of the line, change something, and then press `ctrl+xx` to go back to your original cursor position. To use this shortcut, hold the `ctrl` key and tap the `x` key twice.
+* `ctrl+d or Delete`: Delete the character under the cursor.
+* `alt+d`: Delete all characters after the cursor on the current line.
 * `alt + h`: 命令输入到一半的时候需要查看 man 手册
-
 * `sudo` 插件: 按两次 `esc` 在命令的开头补齐 sudo
-
 * `colored-man-pages` 插件: man 手册高亮
 
 ## Balsamiq
