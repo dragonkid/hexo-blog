@@ -80,6 +80,12 @@ passwd root
 wifi-menu
 ```
 
+设置无线自动连接
+
+```
+netctl enable wlan0-xxx
+```
+
 
 ## 配置 locale
 
