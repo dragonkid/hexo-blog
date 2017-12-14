@@ -35,12 +35,6 @@ echo -ne '/dev/sda1\t/mnt/external_disk/\tntfs-3g\tdefaults,noexec,umask=0000\t0
 pacman -S minidlna
 ```
 
-or
-
-```
-yaourt -S readymedia-transcode-git
-```
-
 编辑配置文件 `/etc/minidlna.conf`，并修改如下配置：
 
 ```
