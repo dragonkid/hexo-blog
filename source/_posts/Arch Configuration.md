@@ -33,10 +33,10 @@ yaourt -S ntfsprogs     # for mkfs.ntfs
 mount /dev/sdx2 root/
 ```
 
-编辑/创建如下文件，并将其修改为如下内容：
+进入 root 目录，编辑/创建如下文件，并将其修改为如下内容：
 
 ```
-vi /etc/systemd/network/eth0.network
+vi etc/systemd/network/eth0.network
 ```
 
 ```
