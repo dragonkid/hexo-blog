@@ -89,24 +89,6 @@ create `/etc/rc.local` and make it executable with `chmod +x /etc/rc.local`
 
 enable the service `systemctl enable rc-local.service`
 
-## yaourt
-
-```bash
-wget https://aur.archlinux.org/cgit/aur.git/snapshot/package-query.tar.gz
-tar -xvzf package-query.tar.gz
-cd package-query
-makepkg -si
-
-cd ..
-wget https://aur.archlinux.org/cgit/aur.git/snapshot/yaourt.tar.gz
-tar -xvzf yaourt.tar.gz
-cd yaourt
-makepkg -si
-
-cd ../
-rm -rf package-query/ package-query.tar.gz yaourt/ yaourt.tar.gz
-```
-
 ## 权限
 
 切换到 root 用户：
@@ -191,11 +173,28 @@ pacman -S archlinuxcn-keyring
 
 ## yaourt
 
-树莓派中需要手工编译
-
 ```
 pacman -S yaourt 
 ```
+
+树莓派中需要手工编译：
+
+```bash
+wget https://aur.archlinux.org/cgit/aur.git/snapshot/package-query.tar.gz
+tar -xvzf package-query.tar.gz
+cd package-query
+makepkg -si
+
+cd ..
+wget https://aur.archlinux.org/cgit/aur.git/snapshot/yaourt.tar.gz
+tar -xvzf yaourt.tar.gz
+cd yaourt
+makepkg -si
+
+cd ../
+rm -rf package-query/ package-query.tar.gz yaourt/ yaourt.tar.gz
+```
+
 
 ## build-essential
 
