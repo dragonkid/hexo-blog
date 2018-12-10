@@ -24,7 +24,7 @@ mount /dev/sda1 /mnt/external_disk/
 将移动硬盘设置为开机自动挂载：
 
 ```
-echo -ne '/dev/sda1\t/mnt/external_disk/\tntfs-3g\tdefaults,noexec,umask=0000\t0\t0' >> /etc/fstab
+echo -ne '/dev/sda1\t/mnt/external_disk/\tauto\tdefaults,noexec,umask=0000\t0\t0' >> /etc/fstab
 ```
 
 ## Minidlna
@@ -137,8 +137,15 @@ vi /etc/samba/smb.conf
         netbios name = XiaoZhuTVSmb
         server string = XiaoZhuTV Samba server
         security = user
+        # fix slow file transfer with mac
+        ea support = yes
+        vfs objects = catia fruit streams_xattr
+        fruit:resource = file
+        fruit:metadata = netatalk
+        fruit:locking = none
+        fruit:encoding = native
 [Movies]
-        path = /mnt/external_disk/Videos
+        path = /mnt/external_disk/
         valid users = god
         public = no
         writeable = yes
@@ -148,9 +155,30 @@ vi /etc/samba/smb.conf
 设置 samba 服务开机启动 & 启动服务：
 
 ```
-systemctl start smbd.service
-systemctl enable smbd.service
+systemctl start smb.service
+systemctl enable smb.service
 ```
+
+上述 samba 服务配置中没有开启 guest 用户访问，也不建议开启，下面继续为 samba 服务配置用户。
+
+由于 samba 服务需要使用 Linux 的用户账号，因此需要先创建一个用户：
+
+```
+# 创建一个没有 home 目录的用户，且该用户无需登录到 Linux。
+# 用户名与配置文件中的 valid users 一致
+useradd -M god
+usermod --shell /usr/bin/nologin --lock god
+```
+
+然后再继续为 samba 服务添加用户并按照提示设置密码，改密码即为后续 samba 服务的用户鉴权密码：
+
+```
+smbpasswd -a god
+# 使用下述命令确认用户已添加成功
+pdbedit -L -v
+```
+
+重起 samba 服务即可。
 
 
 

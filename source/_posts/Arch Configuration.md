@@ -57,6 +57,56 @@ umount root && sync
 
 # 配置
 
+## Bashrc
+
+```bash
+echo -ne '#!/bin/sh\n\nsource ~/.bashrc' > /etc/profile.d/bashrc.sh
+chmod +x /etc/profile.d/bashrc.sh
+```
+
+## enable rc.local
+
+edit file `/usr/lib/systemd/system/rc-local.service`
+
+```bash
+[Unit]
+Description=/etc/rc.local Compatibility
+ConditionPathExists=/etc/rc.local
+
+[Service]
+Type=forking
+ExecStart=/etc/rc.local start
+TimeoutSec=0
+StandardOutput=tty
+RemainAfterExit=yes
+SysVStartPriority=99
+
+[Install]
+WantedBy=multi-user.target
+```
+
+create `/etc/rc.local` and make it executable with `chmod +x /etc/rc.local`
+
+enable the service `systemctl enable rc-local.service`
+
+## yaourt
+
+```bash
+wget https://aur.archlinux.org/cgit/aur.git/snapshot/package-query.tar.gz
+tar -xvzf package-query.tar.gz
+cd package-query
+makepkg -si
+
+cd ..
+wget https://aur.archlinux.org/cgit/aur.git/snapshot/yaourt.tar.gz
+tar -xvzf yaourt.tar.gz
+cd yaourt
+makepkg -si
+
+cd ../
+rm -rf package-query/ package-query.tar.gz yaourt/ yaourt.tar.gz
+```
+
 ## 权限
 
 切换到 root 用户：
@@ -87,7 +137,7 @@ netctl enable wlan0-xxx
 ```
 
 
-## 配置 locale
+## locale
 
 ```
 vi /etc/locale.gen
@@ -99,6 +149,12 @@ vi /etc/locale.gen
 locale-gen
 
 echo LANG=en_US.UTF-8 > /etc/locale.conf
+```
+
+## 时区
+
+```
+ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 ```
 
 ## 源
@@ -129,6 +185,7 @@ Server = http://mirrors.ustc.edu.cn/archlinuxarm/$arch/$repo
 安装 keyring：
 
 ```
+pacman -S archlinux-keyring
 pacman -S archlinuxcn-keyring
 ```
 
@@ -143,7 +200,7 @@ pacman -S yaourt
 ## build-essential
 
 ```
-pacman -S base-devel cmake sudo htop bmon wget tmux
+pacman -S mlocate base-devel cmake sudo htop bmon wget tmux
 ```
 
 # Backup
