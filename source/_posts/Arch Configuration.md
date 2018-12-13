@@ -202,6 +202,10 @@ rm -rf package-query/ package-query.tar.gz yaourt/ yaourt.tar.gz
 pacman -S mlocate base-devel cmake sudo htop bmon wget tmux
 ```
 
+## overlay
+
+* https://github.com/nils-werner/raspi-overlayroot
+
 # Backup
 
 ```
